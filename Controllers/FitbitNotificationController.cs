@@ -28,8 +28,17 @@ public class FitbitNotificationController : ControllerBase
     }
 
     [HttpPost(Name = "PostFitbitNotification")]
-    public async Task<IActionResult> Post()
+    public async Task<IActionResult> Post([FromQuery(Name = "verify")] string verify)
     {
+
+        if(verify == "0d7dd5b02992f05ecc22b41c1978c938410b1252b236fe76d1350264735b720b")
+        {
+            return new NoContentResult();
+        } else
+        {
+            return new NotFoundResult();
+        }
+
         string message = $"{DateTime.Now.ToShortTimeString()} fitbit sleep data synced";
 
         var notificationClient = new AmazonSimpleNotificationServiceClient(region: Region);
