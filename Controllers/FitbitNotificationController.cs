@@ -27,11 +27,9 @@ public class FitbitNotificationController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost(Name = "PostSleep")]
-    public async Task<IResult> Post([FromBody] string content)
+    [HttpPost(Name = "PostFitbitNotification")]
+    public async Task<IActionResult> Post()
     {
-        Random rand = new Random();
-        
         string message = $"{DateTime.Now.ToShortTimeString()} fitbit sleep data synced";
 
         var notificationClient = new AmazonSimpleNotificationServiceClient(region: Region);
@@ -51,19 +49,19 @@ public class FitbitNotificationController : ControllerBase
             {
                 Console.WriteLine("Message sent to topic:");
                 Console.WriteLine(message);
-                return Results.NoContent();
+                return new NoContentResult();
             }
             else
             {
                 Console.WriteLine($"HTTP status {response.HttpStatusCode}");
-                return Results.NoContent();
+                return new NoContentResult();
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine("Exception in publish action:");
             Console.WriteLine(ex.Message);
-            return Results.NoContent();
+            return new NoContentResult();
         }
         // arn:aws:sns:eu-west-1:340568367025:Hack-QA-Fitbit-Notification
         //return Results.NoContent();
