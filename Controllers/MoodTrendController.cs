@@ -17,15 +17,38 @@ public class MoodTrendController : ControllerBase
     [HttpGet(Name = "GetMoodTrend")]
     public IEnumerable<Mood> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new Mood
+        var normal = Enumerable.Range(1, 3).Select(index => new Mood
         {
-            Id = new Guid(),
-            VisitGuid = new Guid(),
-            VisitReportGuid = new Guid(),
+            Id = Guid.NewGuid(),
+            VisitGuid = Guid.NewGuid(),
+            VisitReportGuid = Guid.NewGuid(),
             MoodStringValue = "Normal",
-            MoodIntegerValue = 3
+            MoodIntegerValue = 3,
+            CreatedAt = DateTime.Now.AddDays(index - 8)
         })
         .ToArray();
+        var belowPar = Enumerable.Range(1, 2).Select(index => new Mood
+        {
+            Id = Guid.NewGuid(),
+            VisitGuid = Guid.NewGuid(),
+            VisitReportGuid = Guid.NewGuid(),
+            MoodStringValue = "Below Par",
+            MoodIntegerValue = 2,
+            CreatedAt = DateTime.Now.AddDays(index - 5)
+        })
+        .ToArray();
+        var happy = Enumerable.Range(1, 2).Select(index => new Mood
+        {
+            Id = Guid.NewGuid(),
+            VisitGuid = Guid.NewGuid(),
+            VisitReportGuid = Guid.NewGuid(),
+            MoodStringValue = "Happy",
+            MoodIntegerValue = 5,
+            CreatedAt = DateTime.Now.AddDays(index - 3)
+        })
+        .ToArray();
+        var finalArray = normal.Concat(belowPar).Concat(happy).ToArray();
+        return finalArray;
     }
 }
 

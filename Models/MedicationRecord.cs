@@ -7,8 +7,6 @@ namespace serviceUserHealth.Models
 
         public Boolean Missed { get; set; }
 
-        public String? AlertType { get; set; }
-
         public DateTime MissedAt { get; set; }
 
         public DateTime ResolvedAt { get; set; }

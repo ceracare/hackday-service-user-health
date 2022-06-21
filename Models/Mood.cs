@@ -13,5 +13,7 @@ namespace serviceUserHealth.Models
         public int MoodIntegerValue { get; set; }
 
         public String? MoodStringValue { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

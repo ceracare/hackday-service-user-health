@@ -17,10 +17,13 @@ public class MedicationRecordsController : ControllerBase
     [HttpGet(Name = "GetMedicationsRecord")]
     public IEnumerable<MedicationRecord> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new MedicationRecord
+        return Enumerable.Range(1, 7).Select(index => new MedicationRecord
         {
-            Id = new Guid()
-        })
+            Id = Guid.NewGuid(),
+            Missed = true,
+            MissedAt = DateTime.Now.AddDays(index - 8),
+            ResolvedAt = DateTime.Now.AddDays(index - 5)
+    })
         .ToArray();
     }
 }

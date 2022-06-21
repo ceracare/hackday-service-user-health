@@ -17,13 +17,29 @@ public class RiskScoreTrendController : ControllerBase
     [HttpGet(Name = "GetRiskScoreTrend")]
     public IEnumerable<VisitScore> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new VisitScore
+        var aboveAverage = Enumerable.Range(1, 3).Select(index => new VisitScore
         {
-            Id = new Guid(),
-            VisitId = new Guid(),
-            Score = 123.00
-        })
-        .ToArray();
+            Id = Guid.NewGuid(),
+            VisitId = Guid.NewGuid(),
+            Score = 0.5431,
+            CreatedAt = DateTime.Now.AddDays(index - 8)
+        }).ToArray();
+        var belowAverage = Enumerable.Range(1, 2).Select(index => new VisitScore
+        {
+            Id = Guid.NewGuid(),
+            VisitId = Guid.NewGuid(),
+            Score = -0.5431,
+            CreatedAt = DateTime.Now.AddDays(index - 5)
+        }).ToArray();
+        var average = Enumerable.Range(1, 2).Select(index => new VisitScore
+        {
+            Id = Guid.NewGuid(),
+            VisitId = Guid.NewGuid(),
+            Score = 0.00,
+            CreatedAt = DateTime.Now.AddDays(index - 3)
+        }).ToArray();
+        var finalArray = aboveAverage.Concat(belowAverage).Concat(average).ToArray();
+        return finalArray;
     }
 }
 
