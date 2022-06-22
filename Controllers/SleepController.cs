@@ -40,7 +40,41 @@ public class SleepController : ControllerBase
             // Do something
             var sub = JsonNode.Parse(body);
             var url = sub["SubscribeURL"];
-            return url.ToString();
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+
+                    //var parameters = new Dictionary<string, string> { { "client_id", "238LX9" },
+                    //    { "grant_type", "authorization_code" },
+                    //    { "code", authCode } };
+                    ////Uzkoduojama URL'ui 
+                    //var encodedContent = new FormUrlEncodedContent(parameters);
+                    ////Post http callas.
+                    //HttpResponseMessage response = client.PostAsync("https://api.fitbit.com/oauth2/token", encodedContent).Result;
+                    ////nesekmes atveju error..
+                    //response.EnsureSuccessStatusCode();
+                    ////responsas to string
+                    //var responseToken = await response.Content.ReadFromJsonAsync<FitbitToken>();
+
+                    //var token = responseToken.access_token;
+
+                    var httpRequestMessage = new HttpRequestMessage
+                    {
+                        Method = HttpMethod.Get,
+                        RequestUri = new Uri(url.ToString())
+                    };
+
+                    var sleepResponse = client.SendAsync(httpRequestMessage).Result;
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                }
+                return url.ToString();
         }
     }
 
