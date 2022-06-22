@@ -41,7 +41,7 @@ public class FitbitNotificationController : ControllerBase
     }
 
     [HttpPost(Name = "PostFitbitNotification")]
-    public async Task<IActionResult> Post([FromQuery(Name = "verify")] string verify)
+    public async Task<IActionResult> Post()
     {
         string message = $"{DateTime.Now.ToShortTimeString()} fitbit sleep data synced";
 
